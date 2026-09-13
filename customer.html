@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Find a Service</title>
+</head>
+
+<body>
+
+    <h1>Find a Service</h1>
+
+    <p>Select the service you need:</p>
+
+    <button onclick="showPlumbers()">Plumber</button>
+    <button>Electrician</button>
+    <button>Carpenter</button>
+    <button>Cleaner</button>
+
+    <div id="workers"></div>
+
+    <br>
+
+    <a href="main.html">← Back to Home</a>
+
+    <script>
+
+        function showPlumbers() {
+
+            document.getElementById("workers").innerHTML = `
+
+                <hr>
+
+                <h2>Available Plumbers</h2>
+
+                <h3>Raj Kumar</h3>
+                <p>Experience: 4 years</p>
+                <p>Expected wage: ₹300–500</p>
+                <p>Rating: ⭐ 4.6</p>
+                <a href="plumberRaj.html"><button>View Profile</button></a>
+
+                <hr>
+
+                <h3>Amit Kumar</h3>
+                <p>Experience: 2 years</p>
+                <p>Expected wage: ₹250–400</p>
+                <p>Rating: ⭐ 4.2</p>
+                <button>View Profile</button>
+
+            `;
+        }
+
+    </script>
+
+</body>
+
+</html>

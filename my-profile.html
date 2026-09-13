@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Profile</title>
+</head>
+
+<body>
+
+    <h1>My Profile</h1>
+
+    <div id="profile"></div>
+
+    <script>
+
+        let savedWorker = localStorage.getItem("worker");
+
+        if (savedWorker) {
+
+            let worker = JSON.parse(savedWorker);
+
+            document.getElementById("profile").innerHTML = `
+
+                <h2>${worker.name}</h2>
+
+                <p>Service: ${worker.service}</p>
+
+                <p>Experience: ${worker.experience} years</p>
+
+                <p>Expected wage: ₹${worker.minWage}–₹${worker.maxWage}</p>
+
+                <p>Phone: ${worker.phone}</p>
+
+            `;
+
+        } else {
+
+            document.getElementById("profile").innerHTML =
+                "<p>No profile found.</p>";
+
+        }
+
+    </script>
+
+</body>
+
+</html>

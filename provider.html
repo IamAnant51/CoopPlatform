@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Service Provider Registration</title>
+</head>
+
+<body>
+
+    <h1>Service Provider Registration</h1>
+
+    <p>Tell us about yourself.</p>
+
+    <form>
+
+        <label>Name:</label>
+        <br>
+        <input type="text" id="name">
+
+        <br><br>
+        <label>Service:</label>
+        <br>
+        <select id="service">
+            <option>Plumber</option>
+            <option>Electrician</option>
+            <option>Carpenter</option>
+            <option>Cleaner</option>
+        </select>
+
+        <br><br>
+
+        <label>Years of experience:</label>
+        <br>
+        <input type="number" id="experience">
+
+        <br><br>
+
+        <label>Expected minimum wage (₹):</label>
+        <br>
+        <input type="number" id="minWage">
+
+        <br><br>
+
+        <label>Expected maximum wage (₹):</label>
+        <br>
+        <input type="number" id="maxWage">
+
+        <br><br>
+
+        <label>Phone number:</label>
+        <br>
+        <input type="tel" id="phone">
+
+        <br><br>
+
+        <button type="button" onclick="registerWorker()">
+            Register
+        </button>
+
+    </form>
+
+    <p id="message"></p>
+
+    <br>
+
+    <a href="main.html">← Back to Home</a>
+
+    <script>
+
+    function registerWorker() {
+
+        let worker = {
+            name: document.getElementById("name").value,
+            service: document.getElementById("service").value,
+            experience: document.getElementById("experience").value,
+            minWage: document.getElementById("minWage").value,
+            maxWage: document.getElementById("maxWage").value,
+            phone: document.getElementById("phone").value
+        };
+
+        localStorage.setItem("worker", JSON.stringify(worker));
+        
+        document.getElementById("message").innerText =
+            "Hey, Your Registration is successful! Chill.";
+
+    }
+
+    </script>
+
+</body>
+
+</html>
