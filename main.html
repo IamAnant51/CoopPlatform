@@ -3,26 +3,82 @@
 
 <head>
     <title>Money makers</title>
+    <style>
+        body {
+            font-family: times, sans-serif;
+            margin: 0;
+            background-color: #a3cef9;
+            color: #222;
+        }
+
+        header {
+            background-color: #4e1350;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card {
+            background-color: rgb(156, 252, 160);
+            padding: 30px;
+            margin: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            width: 280px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #1f4e79;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background-color: #163a5c;
+        }
+    </style>
 </head>
 
 <body>
+    <header>
+        <h1>Co-op gig Services</h1>
+        <p>We connect people.</p>
+    </header>
+    <div class="container">
+        <h2>Who are you?</h2>
+        <div class="card">
+            <h3>Customer</h3>
+            <p>Find someone who can work for you.</p>
 
-    <h1>Co-op gig Services</h1>
+            <a href="customer.html"><button>Find a Service</button></a>
+        </div>
 
-    <h2>Find trusted local services</h2>
+        <div class="card">
+            <h3>Service Provider</h3>
+            <p>Register yourself to let people know u.</p>
 
-    <p>Connect directly with service providers in your area.</p>
+            <a href="provider.html"><button>Register me</button></a>
+        </div>
 
-    <hr>
+        <div class="card">
+            <h3>Don't know</h3>
 
-    <h1>What are you looking for?</h1>
-
-    <a href="customer.html"><button>Find a Service</button></a>
-
-    <a href="provider.html"><button>I'm a Service Provider</button></a>
-
-    <a href="heaven.html"><button>GO(to heaven) </button></a>
-
+            <a href="heaven.html"><button>Go To Heaven </button></a>
+        </div>
+    </div>
+    
 </body>
 
 </html>
