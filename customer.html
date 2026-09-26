@@ -3,24 +3,97 @@
 
 <head>
     <title>Find a Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #90d5ff;
+            color: #222;
+        }
+
+        header {
+            background-color: #1f4e79;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .service-card {
+            background-color: rgb(170, 255, 162);
+            width: 180px;
+            padding: 25px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #1f4e79;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #163a5c;
+        }
+
+        #workers {
+            margin-top: 30px;
+        }
+
+        .worker-card {
+            background-color: rgb(255, 172, 172);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 
 <body>
-
-    <h1>Find a Service</h1>
-
-    <p>Select the service you need:</p>
-
-    <button onclick="showPlumbers()">Plumber</button>
-    <button>Electrician</button>
-    <button>Carpenter</button>
-    <button>Cleaner</button>
-
-    <div id="workers"></div>
-
-    <br>
-
-    <a href="main.html">← Back to Home</a>
+    <header>
+        <h1>Find a Service</h1>
+        <p>Select the service you need:</p>
+    </header>
+    <div class="container">
+        <dev class="services">
+            <div class="service-card">
+                <h3>🔧 Plumber</h3>
+                <button onclick="showPlumbers()">View plumbers available</button>
+            </div>
+            <div class="service-card">
+                <h3>⚡ Electrician</h3>
+                <button>View electricians available</button>
+            </div>
+            <div class="service-card">
+                <h3>🪚 Carpenter</h3>
+                <button>View carpenters available</button>
+            </div>
+            <div class="service-card">
+                <h3>🧹 Cleaner</h3>
+                <button>View cleaners available</button>
+            </div>
+        </dev>
+        <div id="workers"></div>
+        <a href="main.html">← Back to Home</a>
+    </div>
 
     <script>
 
@@ -28,24 +101,21 @@
 
             document.getElementById("workers").innerHTML = `
 
-                <hr>
-
                 <h2>Available Plumbers</h2>
-
-                <h3>Raj Kumar</h3>
-                <p>Experience: 4 years</p>
-                <p>Expected wage: ₹300–500</p>
-                <p>Rating: ⭐ 4.6</p>
-                <a href="plumberRaj.html"><button>View Profile</button></a>
-
-                <hr>
-
-                <h3>Amit Kumar</h3>
-                <p>Experience: 2 years</p>
-                <p>Expected wage: ₹250–400</p>
-                <p>Rating: ⭐ 4.2</p>
-                <button>View Profile</button>
-
+                <div class="worker-card">
+                    <h3>Raj Kumar</h3>
+                    <p>Experience: 4 years</p>
+                    <p>Expected wage: ₹300–500</p>
+                    <p>Rating: ⭐ 4.6</p>
+                    <a href="plumberRaj.html"><button>View Profile</button></a>
+                </div>
+                <div class="worker-card">
+                    <h3>Amit Kumar</h3>
+                    <p>Experience: 2 years</p>
+                    <p>Expected wage: ₹250–400</p>
+                    <p>Rating: ⭐ 4.2</p>
+                    <button>View Profile</button>
+                </div>
             `;
         }
 
