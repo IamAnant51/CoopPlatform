@@ -75,25 +75,32 @@
 
         function showPlumbers() {
 
-            document.getElementById("workers").innerHTML = `
-                <div class="check">
-                <h2>Available Plumbers</h2>
-                <div class="worker-card">
-                    <h3>Raj Kumar</h3>
-                    <p>Experience: 4 years</p>
-                    <p>Expected wage: ₹300–500</p>
-                    <p>Rating: ⭐ 4.6</p>
-                    <a href="plumberRaj.html"><button>View Profile</button></a>
-                </div>
-                <div class="worker-card">
-                    <h3>Amit Kumar</h3>
-                    <p>Experience: 2 years</p>
-                    <p>Expected wage: ₹250–400</p>
-                    <p>Rating: ⭐ 4.2</p>
-                    <button>View Profile</button>
-                </div>
-                </div>
-            `;
+            let workers = JSON.parse(localStorage.getItem("workers")) || [];
+
+            let plumbers = workers.filter(function(worker) {
+                return worker.service === "Plumber";
+            });
+
+            let output = "<h2>Available Plumbers</h2>";
+
+            if (plumbers.length === 0) {
+                output += "<p>No plumbers registered yet.</p>";
+            }
+
+            plumbers.forEach(function(worker) {
+
+                output += `
+                    <div class="worker-card">
+                        <h3>${worker.name}</h3>
+                        <p>Experience: ${worker.experience} years</p>
+                        <p>Expected wage: ₹${worker.minWage}–${worker.maxWage}</p>
+                        <p>Phone: ${worker.phone}</p>
+                    </div>
+                `;
+
+            });
+
+            document.getElementById("workers").innerHTML = output;
         }
 
     </script>

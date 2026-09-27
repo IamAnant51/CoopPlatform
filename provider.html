@@ -92,8 +92,11 @@
             maxWage: document.getElementById("maxWage").value,
             phone: document.getElementById("phone").value
         };
-
+        
         localStorage.setItem("worker", JSON.stringify(worker));
+        let workers = JSON.parse(localStorage.getItem("workers")) || [];
+        workers.push(worker);
+        localStorage.setItem("workers", JSON.stringify(workers));
         
         document.getElementById("message").innerText =
             "Hey, Your Registration is successful! Chill.";
