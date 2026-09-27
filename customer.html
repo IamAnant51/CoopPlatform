@@ -3,27 +3,15 @@
 
 <head>
     <title>Find a Service</title>
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #90d5ff;
-            color: #222;
-        }
-
-        header {
-            background-color: #1f4e79;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .container {
+        .check{
             max-width: 900px;
-            margin: 30px auto;
+            margin: 40px auto;
             padding: 20px;
-        }
+            text-align: left;
 
+        }
         .services {
             display: flex;
             flex-wrap: wrap;
@@ -40,19 +28,6 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
-        button {
-            background-color: #1f4e79;
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #163a5c;
-        }
-
         #workers {
             margin-top: 30px;
         }
@@ -62,6 +37,7 @@
             padding: 20px;
             margin: 15px 0;
             border-radius: 10px;
+            text-align: left;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
     </style>
@@ -73,7 +49,7 @@
         <p>Select the service you need:</p>
     </header>
     <div class="container">
-        <dev class="services">
+        <div class="services">
             <div class="service-card">
                 <h3>🔧 Plumber</h3>
                 <button onclick="showPlumbers()">View plumbers available</button>
@@ -90,7 +66,7 @@
                 <h3>🧹 Cleaner</h3>
                 <button>View cleaners available</button>
             </div>
-        </dev>
+        </div>
         <div id="workers"></div>
         <a href="main.html">← Back to Home</a>
     </div>
@@ -100,7 +76,7 @@
         function showPlumbers() {
 
             document.getElementById("workers").innerHTML = `
-
+                <div class="check">
                 <h2>Available Plumbers</h2>
                 <div class="worker-card">
                     <h3>Raj Kumar</h3>
@@ -115,6 +91,7 @@
                     <p>Expected wage: ₹250–400</p>
                     <p>Rating: ⭐ 4.2</p>
                     <button>View Profile</button>
+                </div>
                 </div>
             `;
         }
