@@ -52,57 +52,88 @@
         <div class="services">
             <div class="service-card">
                 <h3>🔧 Plumber</h3>
-                <button onclick="showPlumbers()">View plumbers available</button>
+                <button onclick="showWorkers('Plumber')">View plumbers available</button>
             </div>
             <div class="service-card">
                 <h3>⚡ Electrician</h3>
-                <button>View electricians available</button>
+                <button onclick="showWorkers('Electrician')">View electricians available</button>
             </div>
             <div class="service-card">
                 <h3>🪚 Carpenter</h3>
-                <button>View carpenters available</button>
+                <button onclick="showWorkers('Carpenter')">View carpenters available</button>
             </div>
             <div class="service-card">
                 <h3>🧹 Cleaner</h3>
-                <button>View cleaners available</button>
+                <button onclick="showWorkers('Cleaner')">View cleaners available</button>
             </div>
         </div>
+        <div id="filterBox" style="display: none; margin-top: 20px;">
+            <label for="maxWageFilter">Maximum acceptable wage:</label>
+            <input
+                type="number"
+                id="maxWageFilter"
+                placeholder="e.g. 500"
+                min="0"
+            >
+            <button onclick="applyWageFilter()">Apply Filter</button>
+        </div>
         <div id="workers"></div>
-        <a href="main.html">← Back to Home</a>
+        <a href="customerRequests.html"><button>My Requests</button></a>
+        <hr>
     </div>
+    <a href="main.html">← Back to Home</a>
+    <br><br>
 
     <script>
+        let customerId = localStorage.getItem("customerId");
+        if (!customerId) {
+            customerId = Date.now();
+            localStorage.setItem("customerId", customerId);
+        }
+        let selectedService="";
+        function displayWorkers(workers, heading) {
+            let output = `<h2>${heading}</h2>`;
 
-        function showPlumbers() {
-
-            let workers = JSON.parse(localStorage.getItem("workers")) || [];
-
-            let plumbers = workers.filter(function(worker) {
-                return worker.service === "Plumber";
-            });
-
-            let output = "<h2>Available Plumbers</h2>";
-
-            if (plumbers.length === 0) {
-                output += "<p>No plumbers registered yet.</p>";
+            if (workers.length === 0) {
+                output += `<p>No providers found.</p>`;
             }
 
-            plumbers.forEach(function(worker) {
-
+            workers.forEach(function(worker) {
                 output += `
                     <div class="worker-card">
                         <h3>${worker.name}</h3>
                         <p>Experience: ${worker.experience} years</p>
-                        <p>Expected wage: ₹${worker.minWage}–${worker.maxWage}</p>
-                        <p>Phone: ${worker.phone}</p>
+                        <p>Expected wage:₹${worker.minWage}–${worker.maxWage}</p>
+                        <!--<p>Phone: ${worker.phone}</p>-->
+                        <a href="workerProfile.html?id=${worker.id}"><button>View Profile</button></a>
                     </div>
                 `;
-
             });
-
             document.getElementById("workers").innerHTML = output;
         }
+        function showWorkers(serviceName) {
+            selectedService = serviceName;
+            let workers = JSON.parse(localStorage.getItem("workers")) || [];
+            let matchingWorkers = workers.filter(function(worker) {
+                return worker.service === serviceName;
+            });
+            displayWorkers(matchingWorkers, `Available ${serviceName}s`);
+            document.getElementById("filterBox").style.display = "block";
+        }
+        function applyWageFilter() {
+            let maxWage = Number(document.getElementById("maxWageFilter").value);
 
+            if (!maxWage) {
+                alert("Please enter a maximum wage.");
+                return;
+            }
+
+            let workers = JSON.parse(localStorage.getItem("workers")) || [];
+            let matchingWorkers = workers.filter(function(worker) {
+                return worker.service === selectedService && Number(worker.minWage) <= maxWage;
+            });
+            displayWorkers(matchingWorkers, `Matching ${selectedService}s`);
+        }
     </script>
 
 </body>

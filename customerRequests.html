@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Requests - Co-op Services</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .request-card {
+            background-color: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>My Requests</h1>
+        <p>Track your service requests</p>
+    </header>
+
+    <div class="container">
+        <div id="requests"></div>
+        <br>
+        <a href="customer.html">← Back to Services</a>
+    </div>
+
+    <script>
+        let customerId = localStorage.getItem("customerId");
+        let allRequests = JSON.parse(localStorage.getItem("requests")) || [];
+        let requests = allRequests.filter(function(request) {
+            return String(request.customerId) === String(customerId);
+        });
+        let output = "<h2>Your Requests</h2>";
+        if (requests.length === 0) {
+            output += "<p>You have not made any requests yet.</p>";
+        }
+
+        requests.forEach(function(request) {
+            output += `
+                <div class="request-card">
+                    <h3>${request.service}</h3>
+                    <p>Provider: ${request.workerName}</p>
+                    <p>Description: ${request.description}</p>
+                    <p>Preferred Time: ${request.preferredTime}</p>
+                    <p>Status: <strong>${request.status}</strong></p>
+                </div>
+            `;
+        });
+        document.getElementById("requests").innerHTML = output;
+
+    </script>
+
+</body>
+
+</html>

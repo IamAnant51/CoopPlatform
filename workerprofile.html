@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Worker Profile - Co-op Services</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .profile-card {
+            background-color: white;
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Worker Profile</h1>
+    </header>
+
+    <div class="container">
+        <div id="profile" class="profile-card">
+            <p>Loading profile...</p>
+        </div>
+    </div>
+    <a href="customer.html">← Back to Services</a>
+    <br><br>
+
+    <script>
+        let params = new URLSearchParams(window.location.search);
+        let workerId = params.get("id");
+        let workers = JSON.parse(localStorage.getItem("workers")) || [];
+        let worker = workers.find(function(w) {
+            return String(w.id) === String(workerId);
+        });
+        if (worker) {
+            document.getElementById("profile").innerHTML = `
+                <h2>${worker.name}</h2>
+                <p><strong>Service:</strong> ${worker.service}</p>
+                <p><strong>Experience:</strong> ${worker.experience} years</p>
+                <p><strong>Expected wage:</strong>₹${worker.minWage}–${worker.maxWage}</p>
+                <strong>Phone:</strong> ${worker.phone}
+                <br>
+                <button onclick="requestService()">Request Service</button>
+                <p id="message"></p>
+            `;
+        } else {
+            document.getElementById("profile").innerHTML = `
+                <h2>Worker not found</h2>
+                <p>This worker profile does not exist.</p>
+            `;
+        }
+        function requestService() {
+            let description = prompt("Briefly describe the work you need:");
+            if (description === null || description.trim() === "") {
+                alert("Please describe the work.");
+                return;
+            }
+            let preferredTime = prompt("When would you prefer the service?");
+            if (preferredTime === null || preferredTime.trim() === "") {
+                alert("Please enter a preferred time.");
+                return;
+            }
+            let requests = JSON.parse(localStorage.getItem("requests")) || [];
+            let request = {
+                id: Date.now(),
+                customerId: localStorage.getItem("customerId"),
+                workerId: worker.id,
+                workerName: worker.name,
+                service: worker.service,
+                description: description.trim(),
+                preferredTime: preferredTime.trim(),
+                status: "Pending"
+            };
+            requests.push(request);
+            localStorage.setItem("requests", JSON.stringify(requests));
+            alert("Service request sent successfully!");
+            document.getElementById("message").innerText =
+                "To check for their conformation status, go to Services ";
+        }
+    </script>
+    
+</body>
+
+</html>

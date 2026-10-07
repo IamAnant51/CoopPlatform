@@ -4,7 +4,6 @@
 <head>
     <title>Service Provider Registration</title>
     <link rel="stylesheet" href="css/style.css">
-</head>
     <style>
         .form-card {
             background-color: rgb(241, 252, 159);
@@ -34,6 +33,7 @@
             font-weight: bold;
         }
     </style>
+</head>
 
 <body>
 
@@ -72,36 +72,79 @@
             <input type="tel" id="phone" placeholder="xxxxxxxxxx">
             <hr><br>
             <button onclick="registerWorker()">Register</button>
-
             <p id="message"></p>
             <br>
-            <a href="my-profile.html">View my profile</a>            
+            <a href="my-profile.html">View my profile</a>  
+            <br><br>
+            <button onclick="viewRequests()">View Service Requests</button>          
         </div>
     </div>
     <a href="main.html">← Back to Home</a>
     <br><br><br>
+
     <script>
+        function registerWorker() {
+            let name = document.getElementById("name").value.trim();
+            let service = document.getElementById("service").value;
+            let experience = Number(document.getElementById("experience").value);
+            let minWage = Number(document.getElementById("minWage").value);
+            let maxWage = Number(document.getElementById("maxWage").value);
+            let phone = document.getElementById("phone").value.trim();
 
-    function registerWorker() {
+            if (name === "" || phone === "") {
+                alert("Please fill in all required fields.");
+                return;
+            }
+            if (experience < 0 || minWage < 0 || maxWage < 0) {
+                alert("Values cannot be negative.");
+                return;
+            }
+            if (maxWage < minWage) {
+                alert("Maximum wage cannot be lower than minimum wage.");
+                return;
+            }
+            let workers = JSON.parse(localStorage.getItem("workers")) || [];
+            let existingWorker = workers.find(function(worker) {
+                return worker.phone === phone;
+            });
+            if (existingWorker) {
+                existingWorker.name = name;
+                existingWorker.service = service;
+                existingWorker.experience = experience;
+                existingWorker.minWage = minWage;
+                existingWorker.maxWage = maxWage;
 
-        let worker = {
-            name: document.getElementById("name").value,
-            service: document.getElementById("service").value,
-            experience: document.getElementById("experience").value,
-            minWage: document.getElementById("minWage").value,
-            maxWage: document.getElementById("maxWage").value,
-            phone: document.getElementById("phone").value
-        };
-        
-        localStorage.setItem("worker", JSON.stringify(worker));
-        let workers = JSON.parse(localStorage.getItem("workers")) || [];
-        workers.push(worker);
-        localStorage.setItem("workers", JSON.stringify(workers));
-        
-        document.getElementById("message").innerText =
-            "Hey, Your Registration is successful! Chill.";
+                localStorage.setItem("worker", JSON.stringify(existingWorker));
+                localStorage.setItem("workers", JSON.stringify(workers));
+                document.getElementById("message").innerText =
+                    "Profile updated successfully!";
 
-    }
+            }
+            else{
+                let worker = {
+                    id: Date.now(),
+                    name: name,
+                    service: service,
+                    experience: experience,
+                    minWage: minWage,
+                    maxWage: maxWage,
+                    phone: phone
+                };
+                workers.push(worker);
+                localStorage.setItem("worker", JSON.stringify(worker));
+                localStorage.setItem("workers", JSON.stringify(workers));
+                document.getElementById("message").innerText =
+                    "Your Registration is successful! Chill.";
+            }
+        }
+        function viewRequests(){
+            let currentWorker = JSON.parse(localStorage.getItem("worker"));
+            if (!currentWorker) {
+                alert("Please register as a service provider first");
+                return;
+            }
+            window.location.href =`providerRequests.html?id=${currentWorker.id}`;
+        }
 
     </script>
 

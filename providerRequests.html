@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Service Requests - Co-op Services</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .request-card {
+            background-color: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Service Requests</h1>
+        <p>Requests received from customers</p>
+    </header>
+
+    <div class="container">
+        <div id="requests"></div>
+    </div>
+    <a href="provider.html">← Back to Provider Page</a>
+    <br><br>
+
+    <script>
+        let params = new URLSearchParams(window.location.search);
+        let providerId = params.get("id");
+        let allRequests = JSON.parse(localStorage.getItem("requests")) || [];
+        let requests = allRequests.filter(function(request) {
+            return String(request.workerId) === String(providerId);
+        });
+        let output = "<h2>Your Requests</h2>";
+        if (requests.length === 0) {
+            output += "<p>No service requests yet.</p>";
+        }
+
+        requests.forEach(function(request) {
+            output += `
+                <div class="request-card">
+                    <h3>${request.service} Request</h3>
+                    <p>Work required: ${request.description}</p>
+                    <p>Preferred time: ${request.preferredTime}</p>
+                    <p>Status: ${request.status}</p>
+                    ${
+                        request.status === "Pending"
+                        ? `
+                            <button onclick="updateRequest(${request.id}, 'Accepted')">Accept</button>
+                            <button onclick="updateRequest(${request.id}, 'Rejected')">Reject</button>
+                        `
+                        : `
+                            <p>This request has already been ${request.status.toLowerCase()}.</p>
+                        `
+                    }
+                </div>
+            `;
+        });
+        document.getElementById("requests").innerHTML = output;
+
+        function updateRequest(requestId, newStatus) {
+            let allRequests = JSON.parse(localStorage.getItem("requests")) || [];
+            let request = allRequests.find(function(request) {return String(request.id) === String(requestId);});
+            if (request) {
+                request.status = newStatus;
+                localStorage.setItem("requests",JSON.stringify(allRequests));
+                location.reload();
+            }
+        }
+    </script>
+
+</body>
+
+</html>
